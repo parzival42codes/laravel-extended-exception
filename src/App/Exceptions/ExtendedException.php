@@ -15,23 +15,20 @@ class ExtendedException extends Exception
             ->offset(1)
             ->frames();
 
-        $backtraceTable = '<table>';
-        $backtraceTable .= '<tr><th>File</th><th>LineNumber</th><th>Class</th><th>Method</th></tr>';
+        $backtraceTable = '';
 
         /** @var Spatie\Backtrace\Frame $backtrace */
-        foreach ($backtraceSource as $backtrace) {
-            $backtraceTable .= '<tr><th>'.$backtrace->file.'</th><th>'.$backtrace->lineNumber.'</th><th>'.$backtrace->class.'</th><th>'.$backtrace->method.'</th></tr>';
+        foreach ($backtraceSource as $count => $backtrace) {
+            $backtraceTable .= '#'.$count.' '.$backtrace->file.'('.$backtrace->lineNumber.'): '.$backtrace->class.' -> '.$backtrace->method.'<br />';
         }
 
-        $backtraceTable .= '</table>';
+        $backtraceTable .= '';
 
         $messageSeparated = explode('|||', $this->message, 2);
         $messageHashed = $messageSeparated[1];
         $messageData = json_decode(base64_decode($messageHashed), true);
 
-        $contextFormatted = json_encode($messageData['context'] ?? '', JSON_PRETTY_PRINT);
-
-        d($messageData);
+        $contextFormatted = trim(json_encode($messageData['context'] ?? '', JSON_PRETTY_PRINT));
 
         return response()->view('extended-exception::extended', array_merge(compact([
             'backtraceTable',
