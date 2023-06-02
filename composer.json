@@ -1,0 +1,38 @@
+{
+    "name": "parzival42codes/laravel-extended-exception",
+    "description": "Resources",
+    "license": "MIT",
+    "require": {
+        "php": "^7.4|^8.0",
+        "guzzlehttp/guzzle": "^5.0|^6.0|^7.0",
+        "spatie/laravel-package-tools": "^1.9",
+        "spatie/backtrace": "^1.4"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "parzival42codes\\LaravelExtendedException\\": "src"
+        },
+        "files": [
+            "src/App/Helpers/extendedException.php"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "parzival42codes\\LaravelExtendedException\\Tests\\": "tests"
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "dev",
+    "extra": {
+        "laravel": {
+            "providers": [
+              "parzival42codes\\LaravelExtendedException\\LaravelExtendedExceptionServiceProvider"
+            ]
+        }
+    }
+}
