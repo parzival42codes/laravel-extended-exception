@@ -17,7 +17,6 @@ class ExtendedException extends Exception
 
         $backtraceTable = '';
 
-        /** @var Spatie\Backtrace\Frame $backtrace */
         foreach ($backtraceSource as $count => $backtrace) {
             $backtraceTable .= '#'.$count.' '.$backtrace->file.'('.$backtrace->lineNumber.'): '.$backtrace->class.' -> '.$backtrace->method.'<br />';
         }
@@ -28,7 +27,7 @@ class ExtendedException extends Exception
         $messageHashed = $messageSeparated[1];
         $messageData = json_decode(base64_decode($messageHashed), true);
 
-        $contextFormatted = trim(json_encode($messageData['context'] ?? '', JSON_PRETTY_PRINT));
+        $contextFormatted = json_encode($messageData['context'] ?? '', JSON_PRETTY_PRINT);
 
         return response()->view('extended-exception::extended', array_merge(compact([
             'backtraceTable',

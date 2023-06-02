@@ -3,7 +3,6 @@
 namespace parzival42codes\LaravelExtendedException\App\Services;
 
 use parzival42codes\LaravelExtendedException\App\Exceptions\ExtendedException;
-use Throwable;
 
 class ExtendedExceptionService
 {
@@ -16,8 +15,6 @@ class ExtendedExceptionService
     private string $debugMessage = '';
 
     private array $context = [];
-
-    private Throwable $parentException;
 
     private int $status = 404;
 
@@ -34,15 +31,21 @@ class ExtendedExceptionService
         }
     }
 
-    public function throw(): self
+    public function throw(): void
     {
         $context = [
             'title' => $this->title, 'text' => $this->text,
             'debugMessage' => $this->debugMessage, 'context' => $this->context, 'status' => $this->status,
         ];
 
+        $contextEncode = json_encode($context);
         \Log::error($this->message, $context);
-        throw new ExtendedException($this->message.'|||'.base64_encode(json_encode($context)));
+
+        if (is_string($contextEncode)) {
+            throw new ExtendedException($this->message.'|||'.base64_encode($contextEncode));
+        }
+
+        throw new ExtendedException($this->message);
     }
 
     /**
