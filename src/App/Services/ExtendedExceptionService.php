@@ -48,10 +48,6 @@ class ExtendedExceptionService
         throw new ExtendedException($this->message);
     }
 
-    /**
-     * @param  string  $title
-     * @return ExtendedExceptionService
-     */
     public function title(string $title): self
     {
         $this->title = $title;
@@ -59,10 +55,6 @@ class ExtendedExceptionService
         return $this;
     }
 
-    /**
-     * @param  string  $text
-     * @return ExtendedExceptionService
-     */
     public function text(string $text): self
     {
         $this->text = $text;
@@ -70,10 +62,6 @@ class ExtendedExceptionService
         return $this;
     }
 
-    /**
-     * @param  string  $debugMessage
-     * @return ExtendedExceptionService
-     */
     public function debugMessage(string $debugMessage): self
     {
         $this->debugMessage = $debugMessage;
@@ -81,10 +69,6 @@ class ExtendedExceptionService
         return $this;
     }
 
-    /**
-     * @param  array  $context
-     * @return ExtendedExceptionService
-     */
     public function context(array $context): self
     {
         $this->context = $context;
