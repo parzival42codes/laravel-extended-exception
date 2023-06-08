@@ -2,6 +2,7 @@
 
 namespace parzival42codes\LaravelExtendedException\App\Services;
 
+use Illuminate\Support\Facades\Log;
 use parzival42codes\LaravelExtendedException\App\Exceptions\ExtendedException;
 
 class ExtendedExceptionService
@@ -39,10 +40,10 @@ class ExtendedExceptionService
         ];
 
         $contextEncode = json_encode($context);
-        \Log::error($this->message, $context);
+        Log::error($this->message, $context);
 
         if (is_string($contextEncode)) {
-            throw new ExtendedException($this->message.'|||'.base64_encode($contextEncode));
+            throw new ExtendedException($this->message . '|||' . base64_encode($contextEncode));
         }
 
         throw new ExtendedException($this->message);
