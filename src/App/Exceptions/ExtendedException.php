@@ -18,21 +18,31 @@ class ExtendedException extends Exception
         $backtraceTable = '';
 
         foreach ($backtraceSource as $count => $backtrace) {
-            $backtraceTable .= '#'.$count.' '.$backtrace->file.'('.$backtrace->lineNumber.'): '.$backtrace->class.' -> '.$backtrace->method.'<br />';
+            $backtraceTable .= '#' . $count . ' ' . $backtrace->file . '(' . $backtrace->lineNumber . '): ' . $backtrace->class . ' -> ' . $backtrace->method . '<br />';
         }
 
         $backtraceTable .= '';
 
         $messageSeparated = explode('|||', $this->message, 2);
         $messageHashed = $messageSeparated[1];
+        /** @var array|null $messageData */
         $messageData = json_decode(base64_decode($messageHashed), true);
 
-        $contextFormatted = json_encode($messageData['context'] ?? '', JSON_PRETTY_PRINT);
+        $messageDataContext = '';
+        if (isset($messageData['context']) && is_string($messageData['context'])) {
+            $messageDataContext = $messageData['context'];
+        }
+        $contextFormatted = json_encode($messageDataContext, JSON_PRETTY_PRINT);
 
-        return response()->view('extended-exception::extended', array_merge(compact([
+        $data = compact([
             'backtraceTable',
             'messageHashed',
             'contextFormatted',
-        ]), $messageData));
+        ]);
+        if (is_array($messageData)) {
+            $data = array_merge($data, $messageData);
+        }
+
+        return response()->view('extended-exception::extended', $data);
     }
 }
