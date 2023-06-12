@@ -43,7 +43,7 @@ class ExtendedExceptionService
         Log::error($this->message, $context);
 
         if (is_string($contextEncode)) {
-            throw new ExtendedException($this->message.'|||'.base64_encode($contextEncode));
+            throw new ExtendedException($this->message . '|||' . base64_encode($contextEncode));
         }
 
         throw new ExtendedException($this->message);
