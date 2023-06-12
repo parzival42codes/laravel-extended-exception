@@ -18,7 +18,7 @@ class ExtendedException extends Exception
         $backtraceTable = '';
 
         foreach ($backtraceSource as $count => $backtrace) {
-            $backtraceTable .= '#' . $count . ' ' . $backtrace->file . '(' . $backtrace->lineNumber . '): ' . $backtrace->class . ' -> ' . $backtrace->method . '<br />';
+            $backtraceTable .= '#'.$count.' '.$backtrace->file.'('.$backtrace->lineNumber.'): '.$backtrace->class.' -> '.$backtrace->method.'<br />';
         }
 
         $backtraceTable .= '';
