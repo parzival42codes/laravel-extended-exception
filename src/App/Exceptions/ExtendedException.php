@@ -30,7 +30,10 @@ class ExtendedException extends Exception
         /** @var array|null $messageData */
         $messageData = json_decode(base64_decode($messageHashed), true);
 
-        $messageTemplate = $messageData['template'] ?? 'extended-exception::extended';
+        $messageTemplate = 'extended-exception::extended';
+        if (! empty($messageData['template'])) {
+            $messageTemplate = $messageData['template'];
+        }
 
         $contextFormatted = '';
 

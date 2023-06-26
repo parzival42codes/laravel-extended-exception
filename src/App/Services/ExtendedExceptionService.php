@@ -19,7 +19,7 @@ class ExtendedExceptionService
 
     private array $context = [];
 
-    private int $status = 404;
+    private int $status = 500;
 
     public function __construct(string $message)
     {
@@ -82,6 +82,13 @@ class ExtendedExceptionService
     public function template(string $template): self
     {
         $this->template = $template;
+
+        return $this;
+    }
+
+    public function status(string $status): self
+    {
+        $this->status = $status;
 
         return $this;
     }
