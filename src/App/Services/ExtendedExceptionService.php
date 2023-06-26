@@ -15,6 +15,8 @@ class ExtendedExceptionService
 
     private string $debugMessage = '';
 
+    private string $template = '';
+
     private array $context = [];
 
     private int $status = 404;
@@ -35,7 +37,7 @@ class ExtendedExceptionService
     public function throw(): void
     {
         $context = [
-            'title' => $this->title, 'text' => $this->text,
+            'title' => $this->title, 'text' => $this->text, 'template' => $this->template,
             'debugMessage' => $this->debugMessage, 'context' => $this->context, 'status' => $this->status,
         ];
 
@@ -73,6 +75,13 @@ class ExtendedExceptionService
     public function context(array $context): self
     {
         $this->context = $context;
+
+        return $this;
+    }
+
+    public function template(string $template): self
+    {
+        $this->template = $template;
 
         return $this;
     }

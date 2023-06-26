@@ -17,6 +17,8 @@
             <div class="card" style="flex:2;">
                 <div class="card-header text-center">Debug Message</div>
                 <div class="card-body">
+                    {{ $messageExceptionText }}
+                    <hr />
                     {!! $debugMessage ?? '' !!}
                 </div>
             </div>

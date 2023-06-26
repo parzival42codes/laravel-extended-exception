@@ -24,25 +24,32 @@ class ExtendedException extends Exception
         $backtraceTable .= '';
 
         $messageSeparated = explode('|||', $this->message, 2);
+        $messageExceptionText = $messageSeparated[0];
+
         $messageHashed = $messageSeparated[1];
         /** @var array|null $messageData */
         $messageData = json_decode(base64_decode($messageHashed), true);
 
+        $messageTemplate = $messageData['template'] ?? 'extended-exception::extended';
+
         $contextFormatted = '';
 
-        if (isset($messageData['context'])) {
-            $contextFormatted = json_encode($messageData['context'], JSON_PRETTY_PRINT);
+        $context = $messageData['context'] ?? null;
+        if (! empty($context)) {
+            $contextFormatted = json_encode($context, JSON_PRETTY_PRINT);
         }
 
         $data = compact([
             'backtraceTable',
             'messageHashed',
             'contextFormatted',
+            'context',
+            'messageExceptionText',
         ]);
         if (is_array($messageData)) {
             $data = array_merge($data, $messageData);
         }
 
-        return response()->view('extended-exception::extended', $data);
+        return response()->view($messageTemplate, $data);
     }
 }
