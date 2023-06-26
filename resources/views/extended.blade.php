@@ -13,7 +13,7 @@
         </div>
 
         @debug()
-        <div style="display:flex;">
+        <div style="display:flex;font-size: smaller;">
             <div class="card" style="flex:2;">
                 <div class="card-header text-center">Debug Message</div>
                 <div class="card-body">
@@ -29,13 +29,13 @@
         </div>
         <div class="card">
             <div class="card-header text-center">Context</div>
-            <div class="card-body" style="white-space: pre;overflow: auto; max-height: 10em;">
+            <div class="card-body" style="white-space: pre;overflow: auto; max-height: 10em;font-size: smaller;">
                 {!! $contextFormatted ?? '' !!}
             </div>
         </div>
         <div class="card">
             <div class="card-header text-center">Backtrace</div>
-            <div class="card-body">
+            <div class="card-body" style="font-size: smaller;">
                 {!! $backtraceTable ?? '' !!}
             </div>
         </div>

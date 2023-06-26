@@ -28,11 +28,11 @@ class ExtendedException extends Exception
         /** @var array|null $messageData */
         $messageData = json_decode(base64_decode($messageHashed), true);
 
-        $messageDataContext = '';
-        if (isset($messageData['context']) && is_string($messageData['context'])) {
-            $messageDataContext = $messageData['context'];
+        $contextFormatted = '';
+
+        if (isset($messageData['context'])) {
+            $contextFormatted = json_encode($messageData['context'], JSON_PRETTY_PRINT);
         }
-        $contextFormatted = json_encode($messageDataContext, JSON_PRETTY_PRINT);
 
         $data = compact([
             'backtraceTable',
