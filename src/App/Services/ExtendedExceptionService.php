@@ -19,7 +19,7 @@ class ExtendedExceptionService
 
     private array $context = [];
 
-    private int $status = 500;
+    private int|string $status = 500;
 
     public function __construct(string $message)
     {
