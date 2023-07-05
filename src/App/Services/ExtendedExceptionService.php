@@ -4,6 +4,7 @@ namespace parzival42codes\LaravelExtendedException\App\Services;
 
 use Illuminate\Support\Facades\Log;
 use parzival42codes\LaravelExtendedException\App\Exceptions\ExtendedException;
+use Throwable;
 
 class ExtendedExceptionService
 {
@@ -18,6 +19,8 @@ class ExtendedExceptionService
     private string $template = '';
 
     private array $context = [];
+
+    private Throwable|null $previous = null;
 
     private int|string $status = 500;
 
@@ -41,11 +44,23 @@ class ExtendedExceptionService
             'debugMessage' => $this->debugMessage, 'context' => $this->context, 'status' => $this->status,
         ];
 
+        if ($this->previous instanceof Throwable) {
+            $context['previousException'] = [
+                'message' => $this->previous->getMessage(),
+                'file' => $this->previous->getFile(),
+                'line' => $this->previous->getLine(),
+            ];
+        }
+
         $contextEncode = json_encode($context);
         Log::error($this->message, $context);
 
         if (is_string($contextEncode)) {
-            throw new ExtendedException($this->message . '|||' . base64_encode($contextEncode));
+            if (php_sapi_name() !== 'cli') {
+                throw new ExtendedException($this->message . '|||' . base64_encode($contextEncode));
+            }
+
+            throw new ExtendedException($this->message . ' ' . json_encode($contextEncode));
         }
 
         throw new ExtendedException($this->message);
@@ -89,6 +104,13 @@ class ExtendedExceptionService
     public function status(string $status): self
     {
         $this->status = $status;
+
+        return $this;
+    }
+
+    public function previous(Throwable $previous): self
+    {
+        $this->previous = $previous;
 
         return $this;
     }
