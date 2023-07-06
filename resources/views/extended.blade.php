@@ -1,4 +1,5 @@
-@include('layouts.partials.header')
+@include('extended-exception::header')
+
 <div id="extendedException">
     <div class="container-flex"
          style="flex-direction: column;">
@@ -44,4 +45,5 @@
         @debugEnd()
     </div>
 </div>
-@include('layouts.partials.footer')
+
+@include('extended-exception::footer')

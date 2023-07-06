@@ -31,7 +31,7 @@ class ExtendedException extends Exception
         $messageData = json_decode(base64_decode($messageHashed), true);
 
         $messageTemplate = 'extended-exception::extended';
-        if (! empty($messageData['template'])) {
+        if (config('app.debug') === false && ! empty($messageData['template'])) {
             $messageTemplate = $messageData['template'];
         }
 
@@ -53,6 +53,6 @@ class ExtendedException extends Exception
             $data = array_merge($data, $messageData);
         }
 
-        return response()->view($messageTemplate, $data);
+        return response()->view($messageTemplate, $data, $messageData['status'] ?? 200);
     }
 }

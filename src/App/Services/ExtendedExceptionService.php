@@ -101,7 +101,7 @@ class ExtendedExceptionService
         return $this;
     }
 
-    public function status(string $status): self
+    public function status(string|int $status): self
     {
         $this->status = $status;
 
