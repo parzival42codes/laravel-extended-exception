@@ -13,7 +13,7 @@ class LaravelExtendedExceptionServiceProvider extends PackageServiceProvider
 
     public function configurePackage(Package $package): void
     {
-        $package->name(self::PACKAGE_NAME)->hasViews();
+        $package->name(self::PACKAGE_NAME)->hasViews()->hasRoute('route');
     }
 
     public function registeringPackage(): void
