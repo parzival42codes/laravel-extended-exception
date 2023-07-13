@@ -21,7 +21,7 @@ class DashboardController extends Controller
             $jsonPrettyPrint = json_encode($json, JSON_PRETTY_PRINT);
         }
 
-        return view('extended-exception::extendedException', [
+        return view('extended-exception::exceptionDecode', [
             'extendedException' => $extendedException,
             'extendedExceptionJsonPrettyPrint' => $jsonPrettyPrint,
         ]);
