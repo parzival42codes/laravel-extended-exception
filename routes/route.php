@@ -22,5 +22,5 @@ Route::middleware(['web', 'auth'])
             ->name('extended-exception.dashboard');
 
         Route::post('extended-exception', [DashboardController::class, 'index'])
-            ->name('extended-exception.dashboard');
+            ->name('extended-exception.dashboard.work');
     });
