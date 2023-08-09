@@ -56,7 +56,7 @@ class ExtendedExceptionService
         Log::error($this->message, $context);
 
         if (is_string($contextEncode)) {
-            if (php_sapi_name() !== 'cli') {
+            if (PHP_SAPI !== 'cli') {
                 throw new ExtendedException($this->message.'|||'.base64_encode($contextEncode));
             }
 
