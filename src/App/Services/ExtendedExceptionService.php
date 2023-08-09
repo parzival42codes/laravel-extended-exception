@@ -20,7 +20,7 @@ class ExtendedExceptionService
 
     private array $context = [];
 
-    private Throwable|null $previous = null;
+    private ?Throwable $previous = null;
 
     private int|string $status = 500;
 
