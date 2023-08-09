@@ -57,10 +57,10 @@ class ExtendedExceptionService
 
         if (is_string($contextEncode)) {
             if (php_sapi_name() !== 'cli') {
-                throw new ExtendedException($this->message . '|||' . base64_encode($contextEncode));
+                throw new ExtendedException($this->message.'|||'.base64_encode($contextEncode));
             }
 
-            throw new ExtendedException($this->message . ' ' . json_encode($contextEncode));
+            throw new ExtendedException($this->message.' '.json_encode($contextEncode));
         }
 
         throw new ExtendedException($this->message);
